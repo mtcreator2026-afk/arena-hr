@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ระบบ HR ครบวงจร</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<div class="login-screen" id="login" hidden></div>
+
+<div class="shell" id="appShell" hidden>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <span class="brand-mark">HR</span>
+      <span class="brand-text">
+        <b>ระบบ HR ครบวงจร</b>
+        <small>Employee Lifecycle Suite</small>
+      </span>
+    </div>
+    <nav class="nav" id="nav"></nav>
+    <div class="sidebar-foot">
+      <div class="who" id="who"></div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <button class="icon-btn only-narrow" id="menuBtn" aria-label="เมนู">☰</button>
+      <div class="crumb" id="crumb"></div>
+      <div class="topbar-actions" id="topbarActions"></div>
+    </header>
+
+    <main class="page" id="app"></main>
+  </div>
+
+</div>
+
+<div class="scrim" id="scrim" hidden></div>
+<div class="toasts" id="toasts"></div>
+<div class="modal-host" id="modalHost" hidden></div>
+<input type="file" id="hiddenFile" accept=".xlsx,.xls,.csv" hidden>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/core.js"></script>
+<script src="js/supabase-db.js"></script>
+<script src="js/excel.js"></script>
+<script src="js/datafile.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/schema.js"></script>
+<script src="js/seed.js"></script>
+<script src="js/views-admin.js"></script>
+<script src="js/views-recruit.js"></script>
+<script src="js/views-corehr.js"></script>
+<script src="js/views-time.js"></script>
+<script src="js/views-payroll.js"></script>
+<script src="js/views-talent.js"></script>
+<script src="js/views-analytics.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
