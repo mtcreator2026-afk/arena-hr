@@ -13,7 +13,8 @@
       defaults: function () { return { date: HR.today(), status: 'ปกติ', method: 'บันทึกโดย HR' }; },
       actions: function () {
         return [
-          HR.btn('ลงเวลาตอนนี้', clockNow, 'btn-primary'),
+          HR.btn('นำเข้าจากเครื่องสแกน', function () { HR.go('scanImport'); }, 'btn-primary'),
+          HR.btn('ลงเวลาตอนนี้', clockNow),
           HR.btn('ใบลงเวลารายเดือน (Excel)', timesheetReport)
         ];
       },
