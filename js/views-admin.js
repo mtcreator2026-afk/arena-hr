@@ -327,12 +327,12 @@
 
   /* ================= หน้าของฉัน (ทุกบทบาท) ================= */
   HR.view('myPortal', {
-    title: 'ข้อมูลของฉัน', perm: 'self',
+    title: 'ยื่นคำร้อง', perm: 'self',
     render: function () {
       var e = HR.myEmployee();
       if (!e) {
         return el('div', [
-          HR.pageHead('ข้อมูลของฉัน'),
+          HR.pageHead('ยื่นคำร้อง'),
           el('div.callout.warn', 'บัญชีนี้ยังไม่ได้ผูกกับทะเบียนพนักงาน — แจ้ง HR ให้ตั้งค่าในหน้า "ผู้ใช้ระบบและสิทธิ์"')
         ]);
       }
@@ -443,7 +443,7 @@
       draw();
 
       return el('div', [
-        HR.pageHead('ข้อมูลของฉัน',
+        HR.pageHead('ยื่นคำร้อง',
           (e.prefix || '') + e.firstName + ' ' + e.lastName + ' · ' + HR.nameOf('positions', e.positionId) + ' · ' + (co.name || ''), [
           HR.btn('+ ขอลางาน', function () { HR.newRequest('leaves', e.id); }, 'btn-primary'),
           HR.btn('+ ขอทำ OT', function () { HR.newRequest('otRequests', e.id); }),
