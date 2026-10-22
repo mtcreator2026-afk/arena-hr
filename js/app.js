@@ -6,6 +6,7 @@
   HR.nav = [
     {
       title: 'ของฉัน', items: [
+        { id: 'clockIn', l: 'ลงเวลา (ถ่ายรูป)', show: function () { return !!HR.myEmployee(); } },
         { id: 'myPortal', l: 'ข้อมูลของฉัน' },
         { id: 'myTeam', l: 'ทีมของฉัน' },
         { id: 'approvals', l: 'กล่องอนุมัติคำขอ', count: pendingCount }
@@ -30,6 +31,7 @@
     {
       no: '3', title: 'เวลาทำงานและการลา', items: [
         { id: 'attendance', l: 'บันทึกเวลาเข้า-ออกงาน' },
+        { id: 'clockLog', l: 'ลงเวลาด้วยรูปถ่าย' },
         { id: 'shifts', l: 'รหัสกะ' },
         { id: 'workPatterns', l: 'รูปแบบการทำงานรายบุคคล' },
         { id: 'roster', l: 'ตารางกะรายเดือน' },
@@ -87,7 +89,7 @@
   HR.buildNav = function () {
     var host = HR.clear(document.getElementById('nav'));
     HR.nav.forEach(function (g) {
-      var items = g.items.filter(function (it) { return HR.canView(it.id); });
+      var items = g.items.filter(function (it) { return HR.canView(it.id) && (!it.show || it.show()); });
       if (!items.length) return;
       var box = el('div.nav-group', [el('div.nav-group-title', [g.no ? el('i', g.no) : null, g.title])]);
       items.forEach(function (it) {
