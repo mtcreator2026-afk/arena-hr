@@ -6,7 +6,7 @@
   HR.nav = [
     {
       title: 'ของฉัน', items: [
-        { id: 'clockIn', l: 'ลงเวลา (ถ่ายรูป)', show: function () { return !!HR.myEmployee(); } },
+        { id: 'clockIn', l: 'ลงเวลาเข้างาน', show: function () { return HR.isHR() || !!HR.myEmployee(); } },
         { id: 'myPortal', l: 'ข้อมูลของฉัน' },
         { id: 'myTeam', l: 'ทีมของฉัน' },
         { id: 'approvals', l: 'กล่องอนุมัติคำขอ', count: pendingCount }
