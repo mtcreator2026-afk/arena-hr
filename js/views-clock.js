@@ -86,23 +86,10 @@
     title: 'ลงเวลาเข้างาน', perm: 'self',
     render: function () {
       if (!HR.sb || !HR.sb.enabled) return el('div', [HR.pageHead('ลงเวลาเข้างาน'), offline()]);
-      /* HR ลงเวลาแทนพนักงานคนไหนก็ได้ (เช่น ใช้เครื่องกลางที่หน้างาน) */
-      var isHR = HR.isHR();
-      var pool = isHR ? HR.db.t('employees').filter(function (e) { return HR.inScope('employees', e); })
-        .sort(function (a, b) { return String(a.code || '').localeCompare(String(b.code || '')); }) : [];
-      var me = HR.myEmployee() || pool[0] || null;
+      /* ลงเวลาได้เฉพาะบัญชีของตัวเอง (ฐานข้อมูลบังคับซ้ำอีกชั้น) */
+      var me = HR.myEmployee();
       if (!me) return el('div', [HR.pageHead('ลงเวลาเข้างาน'), el('div.callout.warn', 'บัญชีนี้ยังไม่ได้ผูกกับทะเบียนพนักงาน จึงลงเวลาไม่ได้')]);
-      var picker = null, nameLine = el('div', { style: 'font-weight:600' }, me.firstName + ' ' + me.lastName);
-      if (isHR) {
-        picker = el('select', { style: 'min-height:44px;font-size:16px' }, pool.map(function (e) {
-          return el('option', { value: e.id, selected: e.id === me.id }, (e.code ? e.code + ' · ' : '') + e.firstName + ' ' + e.lastName);
-        }));
-        picker.addEventListener('change', function () {
-          me = HR.db.byId('employees', picker.value) || me;
-          nameLine.textContent = me.firstName + ' ' + me.lastName;
-          loadHistory();
-        });
-      }
+      var nameLine = el('div', { style: 'font-weight:600' }, (me.code ? me.code + ' · ' : '') + me.firstName + ' ' + me.lastName);
 
       var video = el('video', { autoplay: true, muted: true, playsinline: true,
         style: 'width:100%;max-width:420px;aspect-ratio:3/4;object-fit:cover;background:#000;border-radius:12px;display:block;transform:scaleX(-1)' });
@@ -197,12 +184,10 @@
       loadHistory();
 
       return el('div', [
-        HR.pageHead('ลงเวลาเข้างาน', isHR
-          ? 'เลือกพนักงานแล้วกดเข้างานหรือออกงาน · เวลามาจากเซิร์ฟเวอร์ พร้อมรูปถ่ายและตำแหน่ง'
-          : 'เวลามาจากเซิร์ฟเวอร์ พร้อมรูปถ่ายและตำแหน่ง'),
+        HR.pageHead('ลงเวลาเข้างาน', 'เวลามาจากเซิร์ฟเวอร์ พร้อมรูปถ่ายและตำแหน่ง'),
         el('div.grid.cols-2', { style: 'align-items:start;gap:16px' }, [
           HR.card('ถ่ายรูปลงเวลา', null, el('div.stack', [
-            picker ? el('label.field', [el('span.lbl', 'ลงเวลาให้พนักงาน'), picker]) : nameLine,
+            nameLine,
             video, clock, camMsg, locMsg,
             el('div', { style: 'display:flex;gap:10px;margin-top:6px' }, [btnIn, btnOut]),
             el('p.dim', { style: 'font-size:12px;margin:4px 0 0' },
